@@ -1,0 +1,159 @@
+---
+sidebar_position: 4
+sidebar_label: Comment fonctionne Git?
+description: Comment fonctionne Git?
+---
+
+# Comment fonctionne Git?
+
+:::info
+
+Le livre [Pro Git](https://git-scm.com/book/fr/v2) est une excellente ressource
+pour comprendre le fonctionnement de Git. Il est disponible en ligne
+gratuitement et couvre en détail les concepts fondamentaux ainsi que les
+fonctionnalités avancées de Git. Cette section en résume l'essentiel.
+
+:::
+
+## Git à la mitaine
+
+Nous avons tous déjà implanté, manuellement, un système de gestion de versions.
+Est-ce que le nom de fichier `projet_final_v2.docx` vous dit quelque chose ?
+Pour bien comprendre comment fonctionne Git, rien de mieux que de le simuler à
+la main. 
+
+## Mise en place
+
+Commençons d'abord par créer un dossier `git_mitaine` pour notre projet et créons deux fichiers
+texte, `fichierA.txt` et `fichierB.txt`. L'arborescence du projet devrait ressembler à ceci :
+
+```
+git_mitaine/
+├── fichierA.txt
+└── fichierB.txt
+```
+
+Nous venons de voir le premier concept de Git : le **dépôt**. Un dépôt est un
+dossier qui contient tous les fichiers d'un projet ainsi que l'historique des
+modifications. Dans notre cas, le dépôt est `git_mitaine`. Ainsi, un dépôt Git est
+simplement un dossier qui contient tous les fichiers du projet ainsi que
+l'historique des modifications apportées à ces fichiers.
+
+## Première version
+
+Nous allons écrire de grandes choses dans les fichiers `fichierA.txt` et `fichierB.txt`. Mais commençons simplement par écrire
+le contenu suivant dans le fichier `fichierA.txt` :
+
+```
+All your base are belong to us
+```
+
+et dans le fichier `fichierB.txt` :
+
+```
+Winter is installing.
+```
+
+Viens maintenant le temps de sauvegarder notre travail, pour conserver un
+historique. Un peu tanné des noms de fichiers du style `fichierA_v1.txt`, nous
+allons créer un sous-dossier `historique/v1` et simplement tout copier dans ce
+dossier. Notre architecture de projet ressemble maintenant à ceci :
+
+```
+git_mitaine/
+├── fichierA.txt
+├── fichierB.txt
+└── historique/
+    └── v1/
+        ├── fichierA.txt
+        └── fichierB.txt
+```
+
+Nous venons de voir un concept très important de Git. Pour chaque "sauvegarde",
+Git fait une copie **complète** du dossier du projet. Ainsi, chaque
+"sauvegarde" contient l'ensemble des fichiers du projet et pas seulement les
+modifications. L'action de faire une sauvegarde dans Git est appelée une
+**validation** ou commit en anglais.
+
+:::note
+
+Soyez sans crainte, Git ne duplique pas inutilement les fichiers. Il
+utilise des techniques d'optimisation pour ne stocker que les différences entre
+les versions, mais conceptuellement il est important de comprendre d'une validation
+correspond à une copie complète du projet à un instant donné.
+
+:::
+
+On remarque aussi que nous avons créé un dossier `historique` pour conserver
+les différentes versions. En fait, Git nomme ce dossier `.git`. Tout, tout,
+tout le travail de Git se fait dans ce dossier `.git`. Il contient l'historique des
+modifications, les branches, les configurations, etc. Il est donc très
+important de ne pas toucher à ce dossier.
+
+Git utilise le terme répertoire de travail, working directory en anglais, pour
+désigner le dossier principal du projet, c'est-à-dire le dossier qui contient
+les fichiers du projet. Dans notre cas, le répertoire de travail est
+`git_mitaine`. On peut considérer que le dossier `.git` (`historique` dans notre exemple) ne fait pas partie
+du répertoire de travail, mais qu'il est plutôt un dossier interne au fonctionnement de Git.
+
+## Deuxième version
+
+Nous allons maintenant modifier les fichiers `fichierA.txt` et `fichierB.txt` pour
+y ajouter du contenu. Modifier le fichier `fichierA.txt` pour qu'il contienne :
+
+```
+All your base are belong to us
+- CATS, Zero Wing 1991
+```
+
+et le fichier `fichierB.txt` pour qu'il contienne :
+
+```
+Winter is installing.
+- Ned Stark, A Game of Thrones 1996
+```
+
+On aimerait bien sûr conserver cette nouvelle version, alors on va créer un nouveau
+dossier `historique/v2` et y copier les fichiers modifiés. 
+
+
+Sauf qu'on est un peu geek sur les bords et on aime beaucoup les métadonnées.
+On va donc ajouter un fichier `metadata.txt` dans chaque sauvegarde pour
+conserver des informations sur la validation. Le fichier `metadata.txt` de la
+validation `v1` contiendra :
+
+```
+Date: 2025-06-01
+Auteur: Vincent Anonyme
+Message: Première version
+Version précédente: null
+```
+
+et le fichier `metadata.txt` de la validation `v2` contiendra :
+
+```
+Date: 2025-06-02
+Auteur: Vincent Anonyme
+Message: Deuxième version
+Version précédente: v1
+```
+
+
+
+Notre projet ressemble maintenant à ceci :
+
+```
+git_mitaine/
+├── fichierA.txt
+├── fichierB.txt
+└── historique/
+    ├── v1/
+    │   ├── fichierA.txt
+    │   ├── fichierB.txt
+    │   └── metadata.txt
+    └── v2/
+        ├── fichierA.txt
+        ├── fichierB.txt
+        └── metadata.txt
+```
+
