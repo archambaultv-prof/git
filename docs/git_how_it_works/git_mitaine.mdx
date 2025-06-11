@@ -1,21 +1,10 @@
 ---
-sidebar_position: 4
-sidebar_label: Comment fonctionne Git?
-description: Comment fonctionne Git?
+sidebar_position: 1
+sidebar_label: Git à la mitaine
+description: Git à la mitaine
 ---
 
-# Comment fonctionne Git?
-
-:::info
-
-Le livre [Pro Git](https://git-scm.com/book/fr/v2) est une excellente ressource
-pour comprendre le fonctionnement de Git. Il est disponible en ligne
-gratuitement et couvre en détail les concepts fondamentaux ainsi que les
-fonctionnalités avancées de Git. Cette section en résume l'essentiel.
-
-:::
-
-## Git à la mitaine
+# Git à la mitaine
 
 Nous avons tous déjà implanté, manuellement, un système de gestion de versions.
 Est-ce que le nom de fichier `projet_final_v2.docx` vous dit quelque chose ?
@@ -24,8 +13,9 @@ la main.
 
 ## Mise en place
 
-Commençons d'abord par créer un dossier `git_mitaine` pour notre projet et créons deux fichiers
-texte, `fichierA.txt` et `fichierB.txt`. L'arborescence du projet devrait ressembler à ceci :
+Commençons d'abord par créer un dossier `git_mitaine` pour notre projet et
+créons deux fichiers texte, `fichierA.txt` et `fichierB.txt`. L'arborescence du
+projet devrait ressembler à ceci :
 
 ```
 git_mitaine/
@@ -41,7 +31,7 @@ l'historique des modifications apportées à ces fichiers.
 
 ## Première version
 
-Nous allons écrire de grandes choses dans les fichiers `fichierA.txt` et `fichierB.txt`. Mais commençons simplement par écrire
+Commençons simplement par écrire
 le contenu suivant dans le fichier `fichierA.txt` :
 
 ```
@@ -51,7 +41,7 @@ All your base are belong to us
 et dans le fichier `fichierB.txt` :
 
 ```
-Winter is installing.
+Winter is installing
 ```
 
 Viens maintenant le temps de sauvegarder notre travail, pour conserver un
@@ -68,6 +58,8 @@ git_mitaine/
         ├── fichierA.txt
         └── fichierB.txt
 ```
+
+### Lien avec Git
 
 Nous venons de voir un concept très important de Git. Pour chaque "sauvegarde",
 Git fait une copie **complète** du dossier du projet. Ainsi, chaque
@@ -100,7 +92,7 @@ du répertoire de travail, mais qu'il est plutôt un dossier interne au fonction
 ## Deuxième version
 
 Nous allons maintenant modifier les fichiers `fichierA.txt` et `fichierB.txt` pour
-y ajouter du contenu. Modifier le fichier `fichierA.txt` pour qu'il contienne :
+y ajouter du contenu. Modifiez le fichier `fichierA.txt` pour qu'il contienne :
 
 ```
 All your base are belong to us
@@ -110,18 +102,16 @@ All your base are belong to us
 et le fichier `fichierB.txt` pour qu'il contienne :
 
 ```
-Winter is installing.
+Winter is installing
 - Lord Tywin Lannister (pas certain...)
 ```
 
-On aimerait bien sûr conserver cette nouvelle version, alors on va créer un nouveau
-dossier `historique/v2` et y copier les fichiers modifiés. 
-
-
-Sauf qu'on est un peu geek sur les bords et on aime beaucoup les métadonnées.
-On va donc ajouter un fichier `metadata.txt` dans chaque sauvegarde pour
-conserver des informations sur la validation. Le fichier `metadata.txt` de la
-validation `v1` contiendra :
+On aimerait bien sûr conserver cette nouvelle version, alors on va créer un
+nouveau dossier `historique/v2` et y copier les fichiers modifiés. Sauf qu'on
+est un peu geek sur les bords et on aime beaucoup les métadonnées. On va donc
+ajouter un fichier `metadata.txt` dans chaque sauvegarde pour conserver des
+informations sur la validation. Le fichier `metadata.txt` de la validation `v1`
+contiendra :
 
 ```
 Date: 2025-06-01
@@ -157,6 +147,8 @@ git_mitaine/
         └── metadata.txt
 ```
 
+### Lien avec Git
+
 Tout comme nous venons de le faire, Git ajoute des métadonnées à chaque
 validation. Ces métadonnées sont très importantes, car elles permettent de
 comprendre l'historique du projet. Elles contiennent généralement :
@@ -173,6 +165,7 @@ Graphiquement, notre projet ressemble à ceci :
 ---
 title: git_mitaine
 ---
+%%{init: {'theme': 'base', 'gitGraph': {'showBranches': false}} }%%
 gitGraph
     commit id: "v1"
     commit id: "v2"
@@ -232,7 +225,7 @@ All your base are belong to us
 et le fichier `fichierB.txt` contient :
 
 ```
-Winter is installing.
+Winter is installing
 - Ned Stark, A Game of Thrones 1996
 ```
 
@@ -297,9 +290,9 @@ git_mitaine/
         └── fichierB.txt   -- Identique à v3
 ```
 
-Par convention, lorsqu'on fait une validation, le dossier
-`prochaine_validation` est réinitialisé pour préparer la prochaine
-validation avec comme parent la dernière validation et ses fichiers.
+Le dossier `prochaine_validation` a été réinitialisé pour préparer la prochaine
+validation avec comme parent la dernière validation et ses fichiers. C'est
+aussi le cas avec Git.
 
 Graphiquement, notre projet ressemble à ceci :
 
@@ -307,6 +300,7 @@ Graphiquement, notre projet ressemble à ceci :
 ---
 title: git_mitaine
 ---
+%%{init: {'theme': 'base', 'gitGraph': {'showBranches': false}} }%%
 gitGraph
     commit id: "v1"
     branch dev
@@ -315,3 +309,61 @@ gitGraph
     checkout main
     commit id: "v2"
 ```
+
+### Lien avec Git
+
+Git possède un concept similaire à celui de `prochaine_validation`, mais il
+s'appelle le **staging area** ou l'**index**. C'est un espace temporaire où l'on
+peut préparer les fichiers qui seront inclus dans la prochaine validation. On
+peut y ajouter ou retirer des fichiers avant de les valider. Comme pour les validations,
+conceptuellement, l'index contient une copie complète des fichiers qui seront
+validés. Il possible que l'index et le répertoire de travail ne soient pas
+identiques, car l'index peut contenir des fichiers qui ne sont pas dans le
+répertoire de travail et vice-versa.
+
+Aussi, de la même manière que nous avons indiqué le parent de la prochaine
+validation dans le dossier `prochaine_validation`, Git possède un pointeur
+appelé **HEAD** qui dans la plupart des cas pointe vers le parent de la prochaine
+validation.
+
+La notion d'index et du pointeur HEAD sont des concepts fondamentaux de Git.
+Nous les verrons plus en détail dans les prochaines sections, mais il est important de
+garder en tête l'image que l'index est un espace intermédiaire entre le
+répertoire de travail et les validations. Il permet de préparer les
+fichiers qui seront inclus dans la prochaine validation.
+
+## Quatrième version
+
+Nous allons maintenant modifier le fichier `fichierB.txt` pour que le contenu
+soit :
+
+```
+Winter is coming
+- Ned Stark, A Game of Thrones 1996
+```
+
+Nous sommes convaincus que cette fois-ci, le fichier est correct. Nous allons
+donc le valider. Cela va créer la validation `v4` et, graphiquement, notre
+projet ressemble à ceci :
+
+```mermaid
+---
+title: git_mitaine
+---
+%%{init: {'theme': 'base', 'gitGraph': {'showBranches': false}} }%%
+gitGraph
+    commit id: "v1"
+    branch dev
+    checkout dev
+    commit id: "v3"
+    commit id: "v4"
+    checkout main
+    commit id: "v2"
+```
+
+## Un peu d'automatisation
+
+Il serait intéressant d'avoir un outil pour créer automatiquement les dossiers
+`historique/vX` et y copier les fichiers du répertoire de travail, compléter
+les métadonnées, et préparer le dossier `prochaine_validation`. Hum... ça me
+dit quelque chose, ça ! Git est un outil qui fait exactement cela !
