@@ -1,0 +1,186 @@
+---
+sidebar_position: 2
+sidebar_label: Avec Git cette fois
+description: Même projet que précédemment, mais avec Git cette fois
+---
+
+# Avec Git cette fois
+
+Nous allons reprendre les étapes de la section précédente, mais cette fois en
+utilisant les vraies commandes Git. Vous verrez que Git automatise et optimise
+toutes les opérations que nous avons faites à la mitaine.
+
+## Mise en place
+
+Créons d'abord un dossier pour notre projet et initialisons un dépôt Git :
+
+```bash
+mkdir git_mitaine
+cd git_mitaine
+git init
+```
+
+Créons deux fichiers texte :
+
+```bash
+echo "All your base are belong to us" > fichierA.txt
+echo "Winter is installing" > fichierB.txt
+```
+
+À ce stade, l'arborescence du projet ressemble à :
+
+```
+git_mitaine/
+├── fichierA.txt
+└── fichierB.txt
+```
+
+Le dossier `.git` a été créé automatiquement par `git init`. Il contiendra tout
+l'historique, les métadonnées, etc.
+
+## Première version
+
+Ajoutons les fichiers à l'index (staging area) puis validons-les :
+
+```bash
+git add fichierA.txt fichierB.txt
+git commit -m "Première version"
+```
+
+La commande `git add` prépare les fichiers pour la validation en mettant à jour
+l'index. La commande `git commit` enregistre un instantané complet de cet
+index. C'est exactement ce que nous avons fait manuellement dans la section
+précédente avec le répertoire `prochaine_validation` à l'exception que cette fois ce dernier
+est géré par Git et disponible dès la première étape.
+
+## Deuxième version
+
+Modifions les fichiers :
+
+```bash
+echo "- Superman, 1756 (??)" >> fichierA.txt
+echo "- Lord Tywin Lannister (pas certain...)" >> fichierB.txt
+```
+
+A ce stade nous pourrions simplement refaire un `git add` et un `git commit`, mais
+nous allons d'abord vérifier l'état du dépôt et les différences entre les fichiers
+modifiés dans le répertoire de travail et l'index avec la commande suivante :
+
+```bash
+git status
+```
+
+Git nous indique que les fichiers `fichierA.txt` et `fichierB.txt` ont été
+modifiés mais qu'ils ne sont pas dans l'index (not staged for commit). Si nous
+les ajoutons à l'index avec la commande `git add` alors la commande `git status`
+affichera qu'ils sont prêts à être validés (Changes to be committed).
+
+```bash
+git add fichierA.txt fichierB.txt
+git status
+```
+
+On peut alors valider l'index qui contient les modifications apportées aux fichiers :
+
+```bash
+git commit -m "Deuxième version"
+```
+
+Git enregistre à nouveau un instantané complet, mais optimise le stockage en ne
+gardant que les différences.
+
+## Troisième version (valider seulement un fichier, changer de parent)
+
+Supposons que l'on souhaite repartir de la première version et ne valider que
+`fichierA.txt`.
+
+Affichons l'historique pour trouver l'identifiant du commit initial :
+
+```bash
+git log --oneline
+```
+
+Cette command affiche l'historique des commits avec leurs identifiants abrégés. Par exemple :
+
+```
+5662291 (HEAD -> main) Deuxième version
+a87f4ef Première version
+```
+
+En effet, Git n'utilise pas des noms comme `v1`, `v2`, etc. mais plutôt des
+identifiants de commit uniques (hash). Ici, `a87f4ef` est l'identifiant abrégé
+du premier commit. Pour l'instant, l'index contient les modifications de
+`fichierA.txt` et `fichierB.txt` de la deuxième version. D'ailleurs le texte
+`(HEAD -> main)` indique que `HEAD` (et la branche `main`) pointe sur le dernier commit, soit la
+deuxième version.
+
+Il faut donc dire à Git de revenir au commit `a87f4ef` pour créer une nouvelle
+branche à partir de ce commit. Créons une nouvelle branche à partir de ce commit :
+
+:::warning
+
+Il faut changer dans les commandes suivantes l'identifiant du commit pour celui
+donner par `git log --oneline` sur votre machine.
+
+:::
+
+```bash
+git switch a87f4ef -c version2
+```
+
+Cette commande va créer une nouvelle branche nommée `version2` à partir du
+commit `a87f4ef` (la première version). La branche `main` reste inchangée et
+continue de pointer sur le dernier commit. Nous verrons plus en détail
+comment fonctionnent les branches dans une section ultérieure.
+
+Modifions le contenu de `fichierA.txt` :
+
+```bash
+echo "- CATS, Zero Wing 1991" >> fichierA.txt
+```
+
+Ajoutons et validons uniquement ce fichier :
+
+```bash
+git add fichierA.txt
+git commit -m "Troisième version (corrige citation fichierA.txt)"
+```
+
+## Visualiser l'historique graphique
+
+Pour voir le graphe des validations :
+
+```bash
+git log --oneline --graph --all
+```
+
+## Quatrième version
+
+Modifions `fichierB.txt` pour corriger la citation :
+
+```bash
+echo "Winter is coming
+- Ned Stark, A Game of Thrones 1996" > fichierB.txt
+```
+
+Ajoutons et validons :
+
+```bash
+git add fichierB.txt
+git commit -m "Quatrième version (corrige citation fichierB.txt)"
+```
+
+On peut visualiser que notre historique correspond bien à ce que nous avons fait
+à la mitaine :
+
+```bash
+git log --oneline --graph --all
+```
+
+:::info
+
+Si certaines commandes ou terminologies vous semblent obscures, ne vous
+inquiétez pas, nous les expliquerons en détail dans les sections suivantes.
+L'important est de comprendre le flux de travail général.
+
+:::
