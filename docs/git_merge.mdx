@@ -1,0 +1,250 @@
+---
+sidebar_position: 8
+sidebar_label: Fusionner des branches
+description: Fusionner des branches
+---
+
+# Fusionner des branches dans Git
+
+:::note
+
+Pour suivre les étapes de cette section, vous pouvez cloner le dépôt git-merge.
+
+```bash
+git clone https://github.com/archambaultv-prof/git-merge.git
+```
+
+:::
+
+L'objectif de créer des branches est de pouvoir travailler sur des
+fonctionnalités ou des corrections de bugs sans affecter la branche principale.
+Mais il faut bien sûr pouvoir fusionner ces branches pour rassembler le travail
+de plusieurs personnes ou de plusieurs fonctionnalités dans une branche principale.
+
+Le dépôt cloné contient trois branches : `main`, `dev` et `bugfix`. Pour l'instant,
+mis à part la branche `main`, les autres branches ne sont pas des branches locales.
+On peut vérifier cela en utilisant la commande suivante :
+
+```bash
+git branch
+```
+
+et
+
+```bash
+git branch -r
+```
+
+Commençons par créer une version locale de chaque branche distante. Pour cela,
+nous allons utiliser la commande `git switch` avec l'option `--track` pour
+créer une branche locale qui suit la branche distante et ensuite revenir à la
+branche `main`. Voici les commandes à exécuter :
+
+```bash
+git switch --track origin/dev
+git switch --track origin/bugfix
+git switch main
+```
+
+## État du dépôt avant la fusion
+
+Avant même de fusionner les branches, prenons le temps de visualiser le dépôt avec la commande 
+
+```bash
+git log --graph --oneline --all
+* 3631e01 (origin/bugfix, bugfix) E: branche bugfix
+| * 4777674 (origin/dev, dev) D: branche dev
+| * dfa41a3 C: branche dev
+|/  
+| * 346136d (HEAD -> main, origin/main, origin/HEAD) B: branche main
+|/  
+* ced7e54 A: branche main
+```
+
+Il y a cinq validations. La branche `main` contient les validations `A` et  `B`,
+la branche `dev` contient les validations `A`, `C` et `D`, et la branche `bugfix`
+contient les validations `A` et `E`.
+
+Prenez le temps de vérifier le contenu des fichiers dans chaque branche. Le fichier
+`commun.txt` est celui qui est partagé entre les trois branches.
+
+## Fusionner sans conflit
+
+On veut maintenant fusionner la branche `dev` dans la branche `main`. Pour git, une
+fusion est simplement une nouvelle validation qui combine les modifications de
+la branche `dev` dans la branche `main`. Mais cette validation est spéciale, car
+elle a deux parents : le dernier commit de la branche `main` et le dernier commit
+de la branche `dev`.
+
+:::note
+
+Bien qu'il y ait deux parents, la validation de fusion s'applique à une seule
+branche, par exemple à la branche `main`. Dans ce cas, c'est le pointeur de la
+branche `main` qui est mise à jour pour pointer vers cette nouvelle validation.
+Le pointeur de la branche `dev` reste inchangé.
+
+:::
+
+On peut faire la fusion avec la commande suivante :
+
+```bash
+git switch main
+git merge dev -m "F: fusion dev"
+```
+
+Cette commande va créer une nouvelle validation de fusion dans la branche
+`main` qui combine les modifications de la branche `dev`. On peut vérifier que
+la fusion a bien été faite en utilisant la commande suivante :
+
+```bash
+git log --graph --oneline --all --parents
+*   9da8ab2 346136d 4777674 (HEAD -> main) F: fusion dev
+|\  
+| * 4777674 dfa41a3 (origin/dev, dev) D: branche dev
+| * dfa41a3 ced7e54 C: branche dev
+* | 346136d ced7e54 (origin/main, origin/HEAD) B: branche main
+|/  
+| * 3631e01 ced7e54 (origin/bugfix, bugfix) E: branche bugfix
+|/  
+* ced7e54 A: branche main
+```
+
+On voit que maintenant la branche `main` contient une nouvelle validation de fusion
+`F` qui a deux parents : le dernier commit de la branche `main` (`B`) et le
+dernier commit de la branche `dev` (`D`). La branche `dev` reste inchangée et
+continue de pointer sur le dernier commit de la branche `dev` (`D`).
+
+La fusion a été faite sans conflit, c'est-à-dire que les modifications
+de la branche `dev` n'ont pas modifié les mêmes lignes que celles de la
+branche `main`. Ainsi, Git a pu combiner les modifications
+sans problème. En effet, Git a aucune idée de la sémantique du contenu des
+fichiers, il ne fait que combiner les modifications ligne par ligne. Si deux branches
+modifient des lignes différentes du même fichier, Git considère que la fusion
+peut se faire sans conflit.
+
+## Fusionner avec conflit
+
+Maintenant, nous voulons fusionner la branche `bugfix` dans la branche `main`.
+Mais l'état actuel du fichier `commun.txt` dans la branche `main` est :
+
+```text
+branche main
+branche dev
+```
+
+alors que dans la branche `bugfix`, le fichier `commun.txt` est :
+
+```text
+branche main
+branche bugfix
+```
+
+Cette fois-ci, il y aura un conflit, car les deux branches ont modifié
+la deuxième ligne du fichier `commun.txt`. Pour faire la fusion, nous
+allons utiliser la même commande que précédemment :
+
+```bash
+git switch main
+git merge bugfix -m "G: fusion bugfix"
+Auto-merging commun.txt
+CONFLICT (content): Merge conflict in commun.txt
+Automatic merge failed; fix conflicts and then commit the result.
+```
+
+Comme prévu, Git nous indique qu'il y a un conflit dans le fichier `commun.txt`.
+D'ailleurs, si on s'informe sur l'état du dépôt avec la commande `git status`, on
+voit que le fichier `commun.txt` est bel et bien en conflit :
+
+```bash
+git status
+On branch main
+Your branch is ahead of 'origin/main' by 3 commits.
+  (use "git push" to publish your local commits)
+
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Changes to be committed:
+        new file:   bugfix.txt
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+        both modified:   commun.txt
+```
+
+On voit qu'on doit résoudre le conflit dans le fichier `commun.txt` avant de
+pouvoir valider la fusion. Si on regarde le contenu du fichier `commun.txt`, on
+voit qu'il contient des marqueurs de conflit :
+
+```text
+branche main
+<<<<<<< HEAD
+branche dev
+=======
+branche bugfix
+>>>>>>> bugfix
+```
+
+Ces marqueurs indiquent les modifications de chaque branche. La partie entre
+`<<<<<<< HEAD` et `=======` correspond aux modifications de la branche `main`, et
+la partie entre `=======` et `>>>>>>> bugfix` correspond aux modifications de la
+branche `bugfix`. Pour résoudre le conflit, il faut choisir quelle version
+du fichier on veut garder ou comment combiner les deux versions. Du point de vue de Git,
+un conflit est résolu lorsque les marqueurs de conflit sont supprimés !
+
+Dans notre cas, nous allons choisir de garder les deux lignes et ajuster le
+fichier `commun.txt` pour qu'il ressemble à ceci :
+
+```text
+branche main
+branche dev
+branche bugfix
+```
+
+Il faut ensuite ajouter le fichier `commun.txt` à l'index pour indiquer que le
+conflit est résolu :
+
+```bash
+git add commun.txt
+```
+
+Vérifions l'état du dépôt avec la commande `git status` :
+
+```bash
+git status
+On branch main
+Your branch is ahead of 'origin/main' by 3 commits.
+  (use "git push" to publish your local commits)
+
+All conflicts fixed but you are still merging.
+  (use "git commit" to conclude merge)
+
+Changes to be committed:
+        new file:   bugfix.txt
+        modified:   commun.txt
+```
+
+On voit que le conflit est résolu et que le fichier `commun.txt` est prêt à être
+validé. Il ne reste plus qu'à valider la fusion avec la commande suivante :
+
+```bash
+git commit -m "G: fusion bugfix"
+```
+
+L'état final du dépôt est maintenant :
+
+```bash
+git log --graph --oneline --all --parents
+*   adb7a59 9da8ab2 3631e01 (HEAD -> main) G: fusion bugfix
+|\  
+| * 3631e01 ced7e54 (origin/bugfix, bugfix) E: branche bugfix
+* |   9da8ab2 346136d 4777674 F: fusion dev
+|\ \  
+| * | 4777674 dfa41a3 (origin/dev, dev) D: branche dev
+| * | dfa41a3 ced7e54 C: branche dev
+| |/  
+* / 346136d ced7e54 (origin/main, origin/HEAD) B: branche main
+|/  
+* ced7e54 A: branche main
+```
