@@ -3,3 +3,104 @@ sidebar_position: 3
 sidebar_label: Oups, j'ai validé node_modules
 description: Oups! J'ai validé node_modules
 ---
+
+# Oups, j'ai validé node_modules
+
+## Contexte
+
+Vous avez accidentellement validé le dossier `node_modules` dans votre dépôt
+Git. Ou peut-être la base de données SQLite de votre application. Peu importe
+le dossier, il est volumineux et ne devrait pas être dans votre dépôt. Vous
+souhaitez le supprimer de l'historique des commits et éviter qu'il ne soit à
+nouveau ajouté. Évidemment, vous avez déjà quelques validations qui contiennent
+ce dossier, et vous ne voulez perdre aucune de ces validations. Pire, la validation
+contenant le dossier `node_modules` contient des modifications importantes
+que vous ne voulez pas perdre. Vous ne pouvez pas simplement supprimer ce commit 
+avec `git rebase`.
+
+Nous allons utiliser un dépôt de test pour illustrer la procédure. Vous
+pouvez le cloner avec la commande suivante :
+
+```bash
+git clone https://github.com/archambaultv-prof/git-node_modules.git
+```
+
+## Vérifier si node_modules est bien dans l'historique
+
+Pour vérifier si le dossier `node_modules` est bien dans l'historique, vous
+pouvez utiliser la commande suivante :
+
+```bash
+git log --oneline -- node_modules
+7bbc93a Validation de node_modules
+```
+
+Cette commande affiche l'historique des commits qui contiennent le dossier
+`node_modules`. Si vous voyez un commit avec un message indiquant la validation
+de `node_modules`, cela signifie que le dossier est bien dans l'historique.
+
+## Arrêter de le suivre node_modules (sans réécriture de l’historique)
+
+1. **Ajouter à `.gitignore`**
+
+   ```bash
+   echo 'node_modules/' >> .gitignore
+   git add .gitignore
+   ```
+
+2. **Retirer du cache de l’index** (sans supprimer votre dossier de travail)
+
+   ```bash
+   git rm -r --cached node_modules
+   ```
+
+3. **Commit et push**
+
+   ```bash
+   git commit -m "Supprimer le dossier node_modules"
+   git push
+   ```
+
+Après cela, `node_modules/` subsistera dans les anciens commits, mais sera
+ignoré à partir de maintenant. Il est important de faire le push, car la
+prochaine étape se fera à partir d'un nouveau clone du dépôt.
+
+## Purger de **tout** l’historique (réécriture d’historique)
+
+:::danger
+
+Cette opération réécrit tous les commits, toutes les branches et tous les tags.
+Toute personne collaborant sur ce dépôt devra recloner ou réinitialiser son
+clone.
+
+:::
+
+Il existe une commande de git pour supprimer un fichier ou un dossier de l'historique de
+Git : `git filter-branch`, mais même le site officiel de Git [recommande](https://git-scm.com/docs/git-filter-branch#_warning)
+d'utiliser [`git filter-repo`](https://github.com/newren/git-filter-repo).
+
+Ce dernier est un script Python et vous devez l'installer. Vous pouvez avec votre gestionnaire de paquets préféré, par exemple :
+
+<Tabs>
+    <TabItem value="Windows" label="windows" default>
+    ```bash
+    scoop install git-filter-repo
+    ```
+    </TabItem>
+    <TabItem value="Linux" label="linux">
+    ```bash
+    sudo apt install git-filter-repo
+    ```
+    </TabItem>
+</Tabs>
+
+
+```bash
+git filter-repo --invert-paths --path node_modules/
+```
+
+Ensuite, vous devez forcer le push de toutes les branches :
+
+```bash
+git push --force --all
+```
