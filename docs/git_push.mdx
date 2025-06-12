@@ -1,10 +1,10 @@
 ---
 sidebar_position: 8
-sidebar_label: Travailler  avec un serveur distant
+sidebar_label: Git push, git fetch et git pull
 description: Travailler avec un serveur distant
 ---
 
-# Travailler avec un serveur distant
+# Travailler avec des serveurs distants
 
 Git est un outil de gestion de versions qui permet de suivre les modifications
 apportées à un projet. Il est souvent utilisé en conjonction avec un serveur
@@ -15,6 +15,36 @@ La façon la plus courante de travailler avec un serveur distant est de
 cloner un dépôt distant sur votre machine locale, de faire des modifications,
 puis de pousser ces modifications vers le serveur distant. Voici les étapes
 générales pour travailler avec un serveur distant.
+
+## Créer un dépôt sur GitHub ou GitLab
+
+Pour commencer, vous devez créer un dépôt sur GitHub ou GitLab. Voici les instructions pour
+GitHub :
+
+1. Connectez-vous à votre compte GitHub et cliquez sur le bouton "New".
+
+    ![Créez un nouveau dépôt](/img/github_new_1.png)
+
+2. Remplissez les informations du dépôt :
+   - **Repository name** : le nom de votre dépôt. Évitez les espaces, les
+     accents et les caractères spéciaux, utilisez plutôt des tirets ou des
+     underscores.
+   - **Description** : une courte description de votre projet.
+   - **Public/Private** : choisissez si vous voulez que votre dépôt soit public ou privé.
+   - **Initialize this repository with a README** : cochez cette case si vous
+     souhaitez initialiser le dépôt avec un fichier README.
+
+Une fois que vous avez rempli les informations, cliquez sur le bouton "Create repository".
+Vous pouvez ensuite copier l'URL du dépôt distant.
+
+:::warning
+
+Pour ce qui suit, nous allons de dépôt https://github.com/archambaultv-prof/git-commit.git
+dans les exemples. Assurez-vous de remplacer `archambaultv-prof` par votre nom d'utilisateur GitHub et
+`git-commit` par le nom de votre dépôt. Si vous utilisez GitLab, l'URL sera
+similaire, mais avec `gitlab.com` à la place de `github.com`.
+
+:::
 
 ## Cloner un dépôt distant
 
@@ -85,57 +115,3 @@ modifications vers le dépôt distant, vous pouvez utiliser la commande `git pus
 ```bash
 git push
 ```
-
-Toutefois, vous n'avez pas les droits d'accès en écriture sur le dépôt
-`git-commit` de l'utilisateur `archambaultv-prof`.
-
-### Créer son dépôt GitHub et ajouter un deuxième remote
-
-De façon générale, vous travaillez sur votre propre dépôt distant. Toutefois,
-si vous venez de cloner un dépôt et que vous n'avez pas les droits d'accès en
-écriture, vous devez créer un nouveau dépôt distant sur GitHub ou GitLab, puis
-ajouter ce dépôt comme remote.
-
-1. Connectez-vous à votre compte GitHub et cliquez sur le bouton "New".
-
-    ![Créez un nouveau dépôt](/img/github_new_1.png)
-
-2. Remplissez les informations du dépôt :
-   - **Repository name** : le nom de votre dépôt. Évitez les espaces, les
-     accents et les caractères spéciaux, utilisez plutôt des tirets ou des
-     underscores.
-   - **Description** : une courte description de votre projet.
-   - **Public/Private** : choisissez si vous voulez que votre dépôt soit public ou privé.
-   - **Initialize this repository with a README** : cochez cette case si vous
-     souhaitez initialiser le dépôt avec un fichier README.
-
-    ![Créez un nouveau dépôt](/img/github_new_2.png)
-
-Une fois que vous avez rempli les informations, cliquez sur le bouton "Create repository".
-Vous pouvez ensuite copier l'URL du dépôt distant.
-
-### Ajouter le dépôt distant
-
-Par défaut, Git a nommé le dépôt distant `origin` lors du clonage. Mais il serait intéressant
-de le renommer pour éviter toute confusion. En effet, `origin` est le nom par défaut
-et il devrait être celui sur lequel vous avez les droits d'accès en écriture.
-
-La première étape (optionnelle) consiste à renommer le dépôt distant `origin` en `upstream` :
-
-```bash
-git remote rename origin upstream
-```
-
-Ensuite, pour ajouter votre dépôt distant comme remote, utilisez la commande `git remote add` :
-
-:::warning
-
-Assurez-vous de remplacer `username` par votre nom d'utilisateur GitHub et
-`git-commit` par le nom de votre dépôt.
-
-:::
-
-```bash
-git remote add origin https://github.com/username/git-commit.git
-```
-

@@ -1,13 +1,13 @@
 ---
-sidebar_position: 7
-sidebar_label: Pour quelques branches de plus
-description: Travailler avec plusieurs branches
+sidebar_position: 1
+sidebar_label: Introduction aux branches
+description: Introduction aux branches
 ---
 
 # Travailler avec plusieurs branches
 
 Nous avons vu à la section [Git à la
-mitaine](./git_how_it_works/git_mitaine.mdx) qu'il est possible de revenir en
+mitaine](../git_how_it_works/git_mitaine.mdx) qu'il est possible de revenir en
 arrière dans l'historique d'un projet. Lorsque cela arrive, l'historique de
 notre projet ressemble à un arbre avec plusieurs branches. Il est aussi
 possible de simplement bifurquer dans l'historique du projet pour y ajouter de
@@ -63,3 +63,16 @@ le travail en cours. Voici quelques raisons d'utiliser des branches :
 - **Gestion des versions** : Créer des branches pour chaque version majeure du
   projet, ce qui permet de maintenir plusieurs versions en parallèle.
 
+## Qu'est-ce qu'une branche ?
+
+Une branche dans Git est un pointeur vers une validation spécifique dans
+l'historique du projet. Chaque fois que vous créez une nouvelle branche, Git
+crée un nouveau pointeur qui peut évoluer indépendamment de la branche
+principale (généralement appelée `main`). Cela permet de travailler sur des
+modifications sans affecter l'état actuel du projet.
+
+Puisqu'il s'agit juste d'un pointeur, une branche est très légère et
+peut être créée et supprimée facilement. De plus, on peut techniquement
+modifier la valeur de ce pointeur à tout moment, ce qui permet au besoin de
+revenir en arrière dans l'historique du projet ou de radicalement changer
+le contenu de la branche.

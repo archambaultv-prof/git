@@ -1,0 +1,68 @@
+---
+sidebar_position: 2
+sidebar_label: Démarrer depuis le dépôt du prof
+description: Démarrer depuis le dépôt du prof
+---
+
+# Démarrer depuis le dépôt du prof
+
+## Contexte
+
+Vous voulez baser votre travail sur un dépôt distant, mais vous n'avez pas les
+droits d'accès en écriture. Vous n'êtes pas intéressé à faire des pull requests
+ou des contributions, simplement suivre le projet et y ajouter vos propres
+modifications sur votre propre dépôt distant.
+
+Ce scénario est courant lorsqu'un professeur met à disposition un dépôt
+distant pour un travail pratique.
+
+## Ajouter le dépôt du prof
+
+D'abord, vous devez cloner le dépôt distant sur votre machine locale. Par exemple :
+
+```bash
+git clone https://github.com/archambaultv-prof/git-merge.git
+```
+
+Par défaut, Git a nommé le dépôt distant `origin` lors du clonage. Mais il serait intéressant
+de le renommer pour éviter toute confusion. En effet, `origin` est le nom par défaut
+et il devrait être celui sur lequel vous avez les droits d'accès en écriture.
+
+La première étape consiste donc à renommer le dépôt distant `origin` en `upstream` et ajuster
+le nom de la branche `main` :
+
+```bash
+git remote rename origin upstream
+git branch -m main upstream-main
+```
+
+## Ajouter votre propre dépôt distant
+
+Ensuite, pour ajouter votre dépôt distant comme remote, utilisez la commande `git remote add` :
+
+:::warning
+
+Assurez-vous de remplacer `username` par votre nom d'utilisateur GitHub et
+`git-repo` par le nom de votre dépôt.
+
+:::
+
+```bash
+git remote add origin https://github.com/username/git-repo.git
+git fetch --all
+```
+
+Maintenant, vous avez deux dépôts distants : `upstream` pour le dépôt d'origine
+et `origin` pour votre propre dépôt. Vous pouvez vérifier cela avec :
+
+```bash
+git remote -v
+```
+
+:::warning
+
+Lorsque vous utilisez `git fetch`, cela met à jour seulement les références du
+dépôt `origin`. Pour mettre à jour les références du dépôt `upstream`, vous devez
+utiliser `git fetch upstream` ou `git fetch --all` pour mettre à jour les deux dépôts distants.
+
+:::

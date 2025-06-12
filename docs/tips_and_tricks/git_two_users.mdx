@@ -1,0 +1,52 @@
+---
+sidebar_position: 1
+sidebar_label: Travail en équipe
+description: Travail en équipe
+---
+
+# La vie à deux avec Git
+
+## Contexte
+
+Voici quelques conseils pour utiliser Git en petites équipes, par exemple pour
+un projet de groupe.
+
+## La branche `main` est sacrée
+
+Personne ne doit jamais travailler directement dans la branche `main`. Vous travaillez
+sur votre propre branche et vous faites des pull requests pour intégrer vos modifications
+dans la branche `main`. Cela permet de garder la branche `main` stable et de
+faciliter la collaboration entre les membres de l'équipe.
+
+:::warning
+
+Ne jamais, jamais, jamais, jamais, jamais réécrire l'historique de la branche
+`main` ! Tous vos coéquipiers vont vous maudir pendant des semaines si vous
+décidez de faire un `git push --force` sur la branche `main`.
+
+Ceci dit, si vous avez valider des mots de passe, des clés API ou node_modules,
+il est permis pour ces circonstances de réécrire l'historique de la branche
+`main` pour supprimer ces informations. Mais communiquez clairement avec vos
+coéquipiers avant de le faire et assurez-vous qu'ils sont d'accord avec cette
+décision.
+
+:::
+
+## Branche par développeur ou fonctionnalité
+
+Il y a deux écoles de pensée pour les branches :
+
+- **Branche par développeur** : Chaque développeur travaille sur sa propre
+  branche. Cela permet de garder les modifications de chaque développeur
+  séparées et de faciliter la gestion des conflits. Sur votre propre branche, vous pouvez
+  réécrire l'historique, faire des commits, des rebase, etc. sans affecter le
+  travail des autres.
+
+- **Branche par fonctionnalité** : Chaque fonctionnalité est développée dans
+  sa propre branche. Cela permet de garder les modifications liées à une
+  fonctionnalité au même endroit et de faciliter la gestion des pull requests.
+
+Lorsque vous travaillez en équipe de deux, il est parfois plus simple de se
+diviser le travail et de créer une branche par développeur. S'il s'agit d'un
+projet plus complexe qui dure plusieurs semaines, il peut être préférable de
+créer une branche par fonctionnalité.
