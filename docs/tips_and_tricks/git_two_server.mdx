@@ -16,6 +16,23 @@ modifications sur votre propre dépôt distant.
 Ce scénario est courant lorsqu'un professeur met à disposition un dépôt
 distant pour un travail pratique.
 
+
+## Solution simple
+
+Si vous êtes sur la même plateforme que le dépôt du prof (par exemple, GitHub), vous pouvez
+simplement dupliquer (fork) le dépôt. Cela créera une copie du dépôt dans votre propre compte,
+et vous aurez les droits d'accès en écriture sur cette duplication. Vous pouvez ensuite cloner
+votre duplication et commencer à travailler dessus.
+
+Pour plus de détail, consultez la documentation de la plateforme que vous
+utilisez (par exemple, [GitHub - Fork a
+repo](https://docs.github.com/fr/get-started/quickstart/fork-a-repo)).
+
+
+Le reste de ce document est pour les cas où vous ne pouvez pas ou ne voulez pas
+dupliquer le dépôt du prof, mais que vous voulez quand même travailler à partir
+de celui-ci.
+
 ## Ajouter le dépôt du prof
 
 D'abord, vous devez cloner le dépôt distant sur votre machine locale. Par exemple :
@@ -66,3 +83,27 @@ dépôt `origin`. Pour mettre à jour les références du dépôt `upstream`, vo
 utiliser `git fetch upstream` ou `git fetch --all` pour mettre à jour les deux dépôts distants.
 
 :::
+
+## Ajouter une branche `main` locale
+
+Vous avez maintenant un dépôt distant `upstream` qui pointe vers le dépôt du
+prof et un dépôt distant `origin` qui pointe vers votre propre dépôt.
+Cependant, vous n'avez pas encore de branche `main` locale. L'objectif est que
+la branche `main` locale parte de la branche `upstream-main`, mais qu'elle soit 
+suivie par la branche `origin/main` pour que vous puissiez pousser vos
+modifications sur votre propre dépôt distant.
+
+Pour créer une branche `main` locale qui suit la branche `upstream-main`, vous pouvez
+utiliser la commande suivante :
+
+```bash
+git switch -c main upstream-main
+```
+
+Cette commande crée une nouvelle branche `main` à partir de `upstream-main` et
+la positionne comme la branche courante. Pour indiquer à Git que cette
+branche `main` doit suivre la branche `origin/main`, vous pouvez utiliser :
+
+```bash
+git branch --set-upstream-to=origin/main
+```
