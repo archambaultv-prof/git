@@ -1,0 +1,90 @@
+---
+sidebar_position: 3
+sidebar_label: Qu'est-ce qu'un système de versionnement ?
+description: Qu'est-ce qu'un système de versionnement ?
+---
+
+# Qu'est-ce qu'un système de versionnement ?
+
+Nous avons tous déjà implanté, manuellement, un système de gestion de versions.
+Est-ce que le nom de fichier `projet_final_v2.docx` vous dit quelque chose ? Le
+concept de base est simple, avant de modifier un fichier important, on en fait
+une copie qu'on renomme pour indiquer qu'il s'agit d'une nouvelle version.
+Ainsi, on se retrouve avec plusieurs versions du même fichier, par exemple :
+
+
+
+```
+projet_final.docx
+projet_final_v2.docx
+projet_final_v3.docx
+projet_final_v3_commentaires_du_prof.docx
+projet_final_v4.docx
+```
+
+Bien qu'elle fonctionne, cette approche a plusieurs inconvénients :
+- **Facile à oublier.**  Il est facile d'oublier de faire une copie avant de modifier un
+  fichier.
+- **Mise à l'échelle difficile.**  Si on travaille sur plusieurs fichiers, on se retrouve
+  rapidement avec une multitude de copies. Or il est très fréquent en informatique de
+  travailler sur des projets comportant de nombreux fichiers.
+- **Pas de suivi des changements.**  On ne sait pas facilement ce qui a changé
+  entre deux versions, ni qui a fait les changements et pourquoi.
+
+
+## Git
+
+[Git](https://git-scm.com/) va nous aider à gérer les versions de nos fichiers de manière plus
+efficace. En effet, Git est un **système de gestion de
+versions** distribué. Autrement dit, c’est un outil qui enregistre l’historique
+de tous les changements apportés à un projet (fichiers de code, documents,
+etc.), et qui permet de revenir en arrière ou de travailler à plusieurs sans se
+marcher sur les pieds. S'il n'est pas installé sur votre machine, vous pouvez 
+télécharger Git depuis https://git-scm.com/downloads.
+
+:::warning
+
+On parle ici de versions. Il ne s'agit pas de sauvegarde. En effet, on verra que
+Git stocke les informations dans le même dossier que le projet. Donc si votre
+chien mange votre disque dur, vous perdez à la fois le projet et son historique de
+versions.
+
+:::
+
+### Pourquoi Git ?  
+
+Git existe pour résoudre des problèmes fondamentaux du développement logiciel :
+
+1. **Suivi des évolutions.**  À mesure que vous programmez, vous modifiez vos
+     fichiers. Git garde une trace de ces modifications, ce qui permet de
+     retrouver l’origine d’un bug ou de comprendre pourquoi un changement
+     a été effectué.  
+2. **Versionnement.** Plutôt que d’enchaîner des fichiers nommés `projet_final_v2.txt`,
+     Git centralise et organise toutes vos versions au même endroit ; plus
+     besoin de copier-coller manuellement pour conserver une copie de
+     secours.  
+3. **Travail en équipe.**  Plusieurs développeurs peuvent travailler en même temps sur un même
+     projet, chacun dans sa propre branche, puis fusionner leurs
+     avancées sans écraser le travail des autres.  
+4. **Flexibilité et expérimentation.** Vous pouvez créer des branches pour tester de nouvelles idées ou
+     fonctionnalités sans risquer de casser la version stable du projet.
+
+En pratique, cela se traduit par :
+- **Pas de panique si vous cassez quelque chose.** Vous pouvez toujours revenir
+  à une version antérieure qui fonctionnait.  
+- **Vision claire de votre progression.** Vous voyez comment votre code a
+  évolué pas à pas, avec des messages de commit pour expliquer vos intentions.  
+- **Collaboration simplifiée.** Vous partagez votre code sur des plateformes
+  comme GitHub ou GitLab, récupérez le travail de vos collègues et échangez
+  facilement des contributions (pull requests).
+
+### Git est un outil en ligne de commande
+
+Git est un programme que vous pouvez utiliser via une interface en ligne de
+commande (terminal).
+
+Certains programmeurs préfèrent utiliser Git uniquement via la ligne de
+commande, mais il existe aussi des interfaces graphiques (GUI) qui rendent
+l'utilisation de Git plus accessible. Ce site web fournira des instructions
+pour utiliser Git à la fois en ligne de commande et via l'interface graphique
+de VS Code.

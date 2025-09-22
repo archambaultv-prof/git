@@ -1,0 +1,207 @@
+---
+sidebar_position: 4
+sidebar_label: Première validation
+description: Première validation du projet
+---
+
+# Première validation
+
+Maintenant que le dépôt Git est initialisé et qu'il contient des fichiers, nous
+pouvons faire notre première validation (commit). Git utilise le terme
+*validation* pour désigner une "version" du projet. Le terme anglais est
+*commit*.
+
+## Git add et git commit
+
+:::info
+
+Une validation procède en deux étapes :
+
+1. On utilise la commande `git add` pour indiquer à Git quels fichiers on veut
+   inclure dans la validation.
+2. On utilise la commande `git commit` pour créer la validation.
+
+Les deux mêmes étapes sont présentes dans l'interface de VS Code ou en utilisant
+la ligne de commande.
+
+:::
+
+
+### VS Code
+
+#### Git add
+
+Si vous utilisez VS Code, vous pouvez ajouter des fichiers à la validation en
+les sélectionnant dans l'onglet Contrôle de code source (ou "Contrôle de version") et
+en cliquant sur le bouton "+" à côté des fichiers que vous souhaitez inclure.
+Ceci correspond à la commande `git add`, soit l'étape 1 de la validation.
+
+![VS Code Git add files](/img/vscode_git_add.png)
+
+Une fois un ou plusieurs fichiers ajoutés, ils apparaissent dans la section
+"Changements indexés" (ou "Staged Changes" en anglais).
+
+![VS Code Git staged changes](/img/vscode_git_add_2.png)
+
+#### Git commit
+
+Pour faire la validation (l'étape 2), vous pouvez entrer un message de validation
+dans le champ en haut de l'onglet Contrôle de code source et cliquer sur le bouton "Validation ✓"
+
+![VS Code Git staged changes](/img/vscode_git_commit.png)
+
+:::warning
+
+Si à cette étape vous obtenez une erreur concernant le nom et l'email de l'auteur,
+c'est que Git n'a pas encore été configuré avec vos informations. Consultez la section
+[#Configurer Git](#configurer-git) à la fin de cette page pour résoudre ce problème.
+
+:::
+
+Une fois la validation faite, les fichiers disparaissent de la section
+"Changements indexés" et l'onglet Contrôle de code source indique que la branche
+`main` est à jour avec la dernière validation. Vous verez apparaitre la validation
+dans le graphique des branches en bas.
+
+![VS Code Git staged changes](/img/vscode_git_commit_2.png)
+
+#### Git commit sans message
+
+Si vous oubliez d'entrer un message de validation avant de cliquer sur le bouton
+"Validation ✓", VS Code va ouvrir un fichier temporaire dans lequel vous pourrez
+entrer votre message de validation. Une fois que vous avez **enregistré** et **fermé** ce
+fichier, la validation sera créée avec le message que vous avez entré.
+
+![VS Code Git staged changes](/img/vscode_git_commit_3.png)
+
+### Ligne de commande
+
+:::note
+
+Si vous avez déjà exécuté les commandes `git add` et `git commit` dans VS Code,
+vous devez réinitialiser le dépôt Git pour refaire les étapes en ligne de commande.
+Vous pouvez le faire en supprimant le dossier `.git` dans le dossier de votre
+projet. Ensuite, réinitialisez le dépôt avec `git init`.
+
+:::
+
+#### Git add
+
+Commençons par utiliser la commande `git add` pour indiquer à Git qu'on veut
+inclure le fichier `citation_1.txt` dans la prochaine validation.
+
+```bash
+git add citation_1.txt
+```
+
+On peut vérifier que le fichier a bien été ajouté en utilisant encore la commande
+`git status`.
+
+```bash
+git status
+On branch main
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+        new file:   citation_1.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        citation_2.txt
+```
+
+On voit que le fichier `citation_1.txt` est maintenant dans la section *Changes to be
+committed*. Cela signifie que ce fichier sera inclus dans la prochaine validation. Le
+fichier `citation_2.txt` est toujours dans la section *Untracked files*, ce qui signifie
+qu'il ne sera pas inclus dans la prochaine validation tant qu'on ne l'ajoute pas avec
+`git add`.
+
+:::note
+
+Il est donc possible avec Git d'ajouter les fichiers un par un à la validation. On peut
+aussi ajouter plusieurs fichiers en une seule fois. Voir `git add --help` ou votre IA préférée
+pour plus d'informations.
+
+:::
+
+Ajoutons maintenant le fichier `citation_2.txt` avec la commande `git add`.
+
+```bash
+git add citation_2.txt
+```
+
+On peut vérifier que les deux fichiers sont maintenant prêts à être validés avec
+`git status`.
+
+```bash
+git status
+On branch main
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+        new file:   citation_1.txt
+        new file:   citation_2.txt
+```
+
+#### Git commit
+
+Maintenant que les deux fichiers sont prêts à être validés, on peut utiliser la
+commande `git commit` pour créer la validation. La commande `git commit` nécessite
+un message de validation pour décrire les changements. En effet, toutes les validations
+doivent être documentées pour pouvoir être comprises plus tard.
+
+```bash
+git commit -m "Ajout des fichiers de citation"
+[main (root-commit) bfbcc3b] Ajout des fichiers de citation
+ 2 files changed, 2 insertions(+)
+ create mode 100644 citation_1.txt
+ create mode 100644 citation_2.txt
+```
+
+Voilà, la première validation est faite ! On peut vérifier que la validation a bien
+été créée avec la commande `git log`.
+
+```bash
+git log
+commit bfbcc3b5c86a85a2ed2b3acc01b231ed3c0cdcf5 (HEAD -> main)
+Author: John Doe <johndoe@example.com>
+Date:   Sun Sep 21 21:57:44 2025 -0400
+
+    Ajout des fichiers de citation
+```
+
+Git nous informe que la validation a été créée sur la branche `main` et nous
+donne un identifiant unique pour cette validation (un hash SHA-1). On voit
+aussi le message de validation qu'on a fourni. Git ajoute aussi automatiquement
+des informations sur l'auteur et la date de la validation.
+
+## Configurer Git
+
+Si vous avez installé Git pour la première fois, ou que les ordinateurs du
+laboratoire ont été réinitialisés, vous devrez configurer votre nom
+d'utilisateur et votre adresse e-mail. Ces informations seront utilisées pour
+identifier les auteurs des validations.
+
+VS Code vous indiquera si cette configuration est nécessaire lorsque vous
+essayerez de faire une validation avec une message d'erreur similaire à ceci :
+
+![Git config user](/img/vscode_git_username_useremail.png)
+
+Vous pouvez configurer Git en utilisant les commandes suivantes dans le terminal
+de VS Code. Remplacez `John Doe` et `johndoe@example.com` par votre propre nom
+et adresse e-mail.
+
+```bash
+git config --global user.name "John Doe"
+git config --global user.email "johndoe@example.com"
+```
+
+Pour ouvrir le terminal dans VS Code, vous pouvez utiliser le menu `Affichage > Terminal`,
+le raccourci clavier `` Ctrl+` `` (backtick) ou l'icône de terminal dans la barre
+supérieure en haut à droite.
+
+![Git config user](/img/vscode_git_username_useremail_2.png)

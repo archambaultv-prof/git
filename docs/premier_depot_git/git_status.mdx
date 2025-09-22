@@ -1,0 +1,79 @@
+---
+sidebar_position: 3
+sidebar_label: Git status
+description: Git status, ce que Git sait de votre projet
+---
+
+# Git status, ce que Git sait de votre projet
+
+Commençons par créer deux fichiers texte dans le dossier de notre projet. Vous
+pouvez utiliser la ligne de commande ou l'interface de VS Code pour créer les
+fichiers. Par exemple, vous pouvez créer un fichier `citation_1.txt` et un
+fichier `citation_2.txt`.
+
+```bash
+echo "All your base are belong to us." > citation_1.txt
+echo "Winter is installing." > citation_2.txt
+```
+
+Ceci va créer deux fichiers dans le dossier de votre projet avec pour contenu
+respectif "All your base are belong to us." et "Winter is installing.".
+
+## Git status
+
+La commande `git status` permet de voir ce que Git sait de votre projet. Comme on
+vient de créer deux fichiers, Git va nous indiquer qu'il y a deux nouveaux fichiers.
+
+### VS Code
+
+Si vous utilisez VS Code, vous pouvez déjà remarquer depuis l'onglet
+Explorateur que les fichiers `citation_1.txt` et `citation_2.txt` sont en
+verts. Cela signifie que Git voit ces fichiers, mais qu'ils ne font pas encore
+partie de l'historique des versions. En effet, VS Code utilise Git en
+arrière-plan et affiche des informations sur l'état des fichiers dans
+l'interface.
+
+![VS Code Explorer with new files](/img/vscode_git_untracked_files.png)
+
+Pour avoir la même information que la commande `git status`, vous pouvez
+cliquer sur l'icône de source control dans la barre latérale gauche (ou
+utiliser le raccourci clavier `Ctrl+Shift+G`).
+
+![VS Code Git with new files](/img/vscode_git_untracked_files_2.png)
+
+On remarque que les fichiers `citation_1.txt` et `citation_2.txt` sont
+présents dans la section *Changements* (Changes en anglais) avec un "U" à
+côté. Le "U" signifie *Untracked* (non suivi en français).
+
+:::info
+
+VS Code et Git sont des programmes distincts. VS Code utilise Git en
+arrière-plan pour fournir des informations sur l'état des fichiers dans
+l'interface. Quand vous appuyez sur un bouton dans VS Code, cela exécute une
+commande Git en arrière-plan.
+
+:::
+
+### Ligne de commande
+
+Si vous travaillez depuis la ligne de commande, vous pouvez utiliser la commande
+`git status` pour voir ce que Git sait de votre projet.
+
+```bash
+On branch main
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        citation_1.txt
+        citation_2.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+```
+
+Le terme *Untracked files* signifie que Git voit des nouveaux fichiers, mais qu'il 
+n'existe aucune version de ces fichiers dans l'historique. La commande `git status`
+suggère souvent des commandes à utiliser pour la suite. Ici, on voit qu'on peut utiliser
+`git add <file>` pour indiquer à Git qu'on veut inclure ces fichiers dans la prochaine
+validation (commit).

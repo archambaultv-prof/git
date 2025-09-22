@@ -1,0 +1,45 @@
+---
+sidebar_position: 2
+sidebar_label: Initialiser un dépôt Git
+description: Initialiser un dépôt Git
+---
+
+# Git init
+
+Pour que Git puisse vous aider à gérer les versions de votre projet, vous devez
+d'abord initialiser un dépôt Git dans le dossier de votre projet. Le dépôt Git
+est en fait simplement un sous-dossier nommé `.git` qui contiendra tout
+l'historique et les métadonnées gérées par Git. Bref, c'est comme si vous
+créiez un dossier `anciennes_versions` dans lequel vous copieriez les fichiers
+avant de les modifier, sauf que cette fois c'est Git qui gère ce dossier pour
+vous. Vous pouvez initialiser un dépôt Git via le terminal ou VS Code.
+
+La commande `git init` crée un sous-dossier `.git` dans le dossier courant. Git va tout
+stocker dans ce dossier, y compris l'historique des versions. *Vous ne devez jamais
+modifier ou supprimer ce dossier manuellement.* Si vous le faites, vous risquez de
+corrompre le dépôt Git.
+
+### VS Code
+
+Voici comment initialiser un dépôt Git dans VS Code. D'abord, assurez-vous
+d'avoir ouvert le dossier de votre projet dans VS Code. Si vous allez dans
+l'onglet Explorateur, vous devriez voir le nom de votre projet en haut. Dans l'exemple
+ci-dessous, le nom du projet est `Projet_1`. Le projet est vide et ne contient
+aucun fichier.
+
+![VS Code Explorer](/img/vscode_open_folder.png)
+
+Ensuite, allez dans l'onglet Source Control (l'icône avec les branches Git) et cliquez
+sur le bouton `Initialize Repository`.
+
+![VS Code Source Control](/img/vscode_git_init.png)
+
+
+### Ligne de commande
+
+Voici comment initialiser un dépôt Git en ligne de commande :
+
+```bash
+cd chemin/vers/Projet_1
+git init
+```
