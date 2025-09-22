@@ -1,0 +1,97 @@
+---
+sidebar_position: 5
+sidebar_label: Validations suivantes
+description: Validations suivantes du projet
+---
+
+# Validations suivantes
+
+Maintenant que vous avez fait votre première validation, vous pouvez continuer à
+travailler sur votre projet. Commençons par modifier le fichier `citation_1.txt`
+pour y ajouter la source de la citation. Ajoutons la ligne `- CATS, Zero Wing 1991` à la fin du
+fichier.
+
+![VS Code Git add files](/img/vscode_git_add_3.png)
+
+On remarque que le fichier `citation_1.txt` est maintenant en jaune dans l'onglet
+Explorateur. Cela signifie que le fichier a été modifié depuis la dernière validation.
+De plus, la ligne deux du fichier a un trait vert à côté. Cela signifie que cette ligne a été
+ajoutée depuis la dernière validation. 
+
+Il serait possible d'obtenir ces informations avec la commande `git diff
+citation_1.txt`.
+
+```
+git diff citation_1.txt
+diff --git a/citation_1.txt b/citation_1.txt
+index ff37958..3168a0e 100644
+--- a/citation_1.txt
++++ b/citation_1.txt
+@@ -1 +1,2 @@
+-All your base are belong to us.
+\ No newline at end of file
++All your base are belong to us.
++- CATS, Zero Wing 1991
+\ No newline at end of file
+```
+
+Toutefois, il est bien plus agréable visuellement de voir ces informations dans l'interface de
+VS Code.
+
+## Deuxième validation
+
+On peut maintenant faire une deuxième validation pour enregistrer la modification
+du fichier `citation_1.txt`. Comme pour la première validation, on commence par
+ajouter le fichier avec `git add` ou via l'interface de VS Code.
+
+![VS Code Git add files](/img/vscode_git_add_4.png)
+
+Ensuite, une fois le fichier ajouté aux changements à valider, on peut entrer
+un message de validation et cliquer sur le bouton `Validation ✓` pour créer la
+deuxième validation ou utiliser la ligne de commande avec `git commit -m "message"`.
+
+![VS Code Git add files](/img/vscode_git_add_5.png)
+
+## Graphique des validations
+
+Lorsqu'on fait plusieurs validations, il peut être intéressant de voir un
+graphique des validations pour visualiser l'historique du projet. On peut le faire
+via l'onglet Contrôle de code source dans VS Code.
+
+VS Code affiche un graphique des validations en ordre chronologique avec le
+message de chaque validation. On peut cliquer sur une validation pour voir les
+fichiers qui ont été modifiés dans cette validation. En cliquant sur un fichier, on
+peut voir les modifications qui ont été faites dans ce fichier. Ces modifications
+sont affichées dans la fenêtre principale de VS Code avec les lignes
+ajoutées en vert et les lignes supprimées en rouge. 
+
+![VS Code Git add files](/img/vscode_git_graph.png)
+
+Il est aussi possible de voir le graphique des validations en ligne de commande
+avec la commande `git log --oneline --graph --all`. Cette commande affiche
+un graphique des validations dans le terminal avec le message de chaque validation.
+
+## Troisième validation
+
+Pour la troisième validation, nous allons corriger la citation du fichier
+`citation_2.txt` et ajouter la source de la citation. Modifions le fichier pour que son
+contenu soit :
+
+```
+Winter is coming.
+- Ned Stark, A Game of Thrones 1996
+```
+
+![VS Code Git add files](/img/vscode_git_add_6.png)
+
+Cette fois, avant de valider, vous pouvez cliquer sur le fichier `citation_2.txt` dans
+l'onglet Contrôle de code source pour voir les modifications qui ont été faites. Ceci est 
+utile pour visualiser les modifications avant de les valider.
+
+![VS Code Git add files](/img/vscode_git_add_7.png)
+
+On peut ensuite ajouter le fichier aux changements à valider et faire la
+validation avec le message "Correction de la citation et ajout de la source". Vous
+obtiendrez alors un graphique des validations avec trois validations.
+
+![VS Code Git add files](/img/vscode_git_graph_2.png)
