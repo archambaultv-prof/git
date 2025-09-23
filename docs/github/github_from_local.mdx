@@ -6,8 +6,26 @@ description: Créer un dépôt GitHub depuis un dépôt local
 
 # Créer un dépôt GitHub depuis un dépôt local
 
-:::warning
+Une fois que vous avez un dépôt Git local, vous pouvez le pousser vers un dépôt
+GitHub.
 
-À venir
+### VS Code
 
-:::
+D'abord, assurez-vous d'avoir ouvert le dossier de votre projet dans VS Code.
+Ensuite, allez dans l'onglet Source Control et assurez-vous que votre dépôt est
+initialisé. Idéalement, vous devriez avoir au moins une validation.
+
+Si vous n'avez aucune nouvelle modification à valider, vous devriez voir
+un grand bouton `Publier Branch` en haut. Cliquez dessus. VS Code va vous
+demander si vous voulez un dépôt public ou privé. Choisissez l'option
+qui vous convient. VS Code va ensuite créer le dépôt sur GitHub et pousser
+votre code. Il est possible que votre navigateur s'ouvre pour vous demander
+de vous connecter à GitHub.
+
+![Cloner un dépôt distant](/img/vscode_git_publish.png)
+
+Si vous avez des modifications indexées, vous ne verrez pas le bouton `Publier Branch`.
+Dans ce cas, vous pouvez toujours cliquer sur le nuage a droite de `Graphique` pour publier
+la branche courante.
+
+![Cloner un dépôt distant](/img/vscode_git_publish_2.png)

@@ -6,17 +6,41 @@ description: Cloner un dépôt distant
 
 # Cloner un dépôt distant
 
+Cloner un dépôt distant signifie créer une copie locale d'un autre dépôt,
+souvent hébergé sur une plateforme comme GitHub ou GitLab. Cela vous permet de
+travailler sur le code sur votre propre machine, de faire des modifications,
+et de les pousser vers le dépôt distant lorsque vous êtes prêt.
+
+Pour ce faire, vous aurez besoin de l'URL du dépôt distant que vous souhaitez
+cloner. Vous pouvez la trouver sur la page du dépôt sur GitHub ou GitLab,
+généralement dans un champ de texte intitulé "Clone", "Code" ou "Clone with
+HTTPS".
+
+![Cloner un dépôt distant](/img/clone_url.png)
+
+
+## VS Code
+
+Dans VS Code, il existe plusieurs façons de cloner un dépôt distant. Si vous n'avez pas
+encore ouvert de dossier, vous pouvez utiliser le bouton `Cloner un dépôt` sur
+l'écran de bienvenue ou dans l'explorateur de fichiers.
+
+![Cloner un dépôt distant](/img/vscode_git_clone.png)
+
+Vous pouvez aussi utiliser la palette de commandes (Ctrl+Shift+P ou Cmd+Shift+P)
+et chercher `Git: Clone`. Collez l'URL du dépôt distant dans le champ qui apparaît.
+
+VS Code vous demandera où vous voulez enregistrer le dépôt cloné sur votre machine et ensuite
+il téléchargera le dépôt. Une fois le clonage terminé, VS Code vous proposera
+d'ouvrir le dossier du dépôt cloné.
+
+## Ligne de commande
+
 Utilisez la commande `git clone` pour récupérer une copie du dépôt distant sur
-votre machine locale. Par exemple, pour cloner le dépôt
-`git` de l'utilisateur `archambaultv-prof`, vous pouvez utiliser la commande suivante :
+votre machine locale. Par exemple, pour cloner le dépôt `git` de l'utilisateur
+`archambaultv-prof`, vous pouvez utiliser la commande suivante :
 
 ```bash
 git clone https://github.com/archambaultv-prof/git.git
 cd git
 ```
-
-Si vous n'êtes pas certain de l'URL du dépôt, vous pouvez la trouver sur la page
-du dépôt sur GitHub ou GitLab, généralement dans un champ de texte intitulé
-"Clone", "Code" ou "Clone with HTTPS".
-
-![Cloner un dépôt distant](/img/clone_url.png)
