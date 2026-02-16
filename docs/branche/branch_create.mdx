@@ -1,0 +1,71 @@
+---
+sidebar_position: 2
+sidebar_label: Création d'une branche
+description: Création d'une branche
+---
+
+# Créaton d'une branche dans Git
+
+## Lister les branches disponibles
+
+Avant même de créer une branche, il est utile de savoir quelles branches sont
+déjà présentes dans votre dépôt. Pour cela, vous pouvez utiliser la commande
+suivante dans le terminal :
+
+```bash
+git branch
+* main
+```
+
+Cette commande affiche la liste des branches locales dans votre dépôt. La branche
+courante est indiquée par un astérisque (`*`) à côté de son nom.
+
+Avec VS Code, la branche courante est affichée dans la barre d'état en bas à
+gauche de la fenêtre. En cliquant dessus, vous pouvez voir la liste des
+branches disponibles et basculer entre elles.
+
+![VS Code Git add files](/img/vscode_git_branche_1.png)
+
+## Créer une nouvelle branche locale
+
+Pour créer une nouvelle branche locale, vous pouvez utiliser la
+commande suivante :
+
+```bash
+git switch -c nom_de_la_branche
+```
+
+L'option `-c` permet de créer une nouvelle branche et de basculer dessus. Il
+existe aussi la commande `git checkout -b nom_de_la_branche` qui fait la même chose,
+mais la commande `git switch` est plus récente et plus intuitive pour changer
+de branche.
+
+Pour confirmer que vous êtes bien sur la nouvelle branche, vous pouvez
+utiliser la commande `git branch` :
+
+```bash
+git branch
+* nom_de_la_branche
+  main
+```
+
+Dans VS Code, vous pouvez cliquer sur le nom de la branche dans la barre d'état
+et sélectionner "Créez une nouvelle branche" pour créer une nouvelle branche. Vous serez
+invité à entrer le nom de la branche, puis vous basculerez automatiquement dessus.
+
+![VS Code Git add files](/img/vscode_git_branche_2.png)
+
+## Changer de branche
+
+Pour simplement changer de branche, sans en créer une nouvelle, vous
+pouvez utiliser la commande `git switch` suivie du nom de la branche :
+
+```bash
+git switch main
+```
+
+Dans VS Code, vous pouvez cliquer sur le nom de la branche dans la barre d'état
+et sélectionner la branche vers laquelle vous souhaitez basculer dans la liste des branches
+qui s'affiche en haut.
+
+![VS Code Git add files](/img/vscode_git_branche_3.png)
