@@ -6,4 +6,33 @@ description: Fusion et conflits
 
 # Fusion et conflits
 
-À venir...
+Lorsque vous travaillez avec des branches, il peut arriver que vous ayez
+des conflits lorsque vous essayez de fusionner une branche dans une autre. Un
+conflit se produit lorsque deux branches modifient la même partie d'un fichier. Git
+ne sait pas comment fusionner ces modifications automatiquement et vous devez
+résoudre le conflit manuellement.
+
+Pour résoudre un conflit, vous pouvez utiliser un éditeur de texte ou un outil
+graphique comme VS Code. Lorsque vous ouvrez le fichier en conflit, vous verrez
+des marques spécifiques indiquant les parties en conflit :
+
+```
+<<<<<<< HEAD
+Contenu de la branche actuelle
+=======
+Contenu de la branche à fusionner
+>>>>>>> branch-name
+```
+
+Vous pouvez alors choisir quel contenu garder ou combiner les deux parties
+manuellement. Pour résoudre le conflit, vous devez supprimer les marques de
+conflit et garder uniquement le contenu que vous souhaitez conserver. Une fois
+que vous avez résolu tous les conflits, vous pouvez valider les modifications
+et pousser la validation vers GitHub.
+
+VS Code offre également une interface pour résoudre les conflits de fusion.
+Lorsque vous ouvrez un fichier en conflit, vous verrez des options pour
+accepter les modifications de la branche actuelle, accepter les modifications
+de la branche à fusionner ou accepter les deux modifications.
+
+![VS Code Git add files](/img/vscode_git_branche_6.png)

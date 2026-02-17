@@ -6,4 +6,44 @@ description: Branches git et GitHub
 
 # Branches git et GitHub
 
-À venir...
+Une fois que vous avez créé votre dépôt git et que vous avez fait votre premier
+commit, vous pouvez créer des branches pour travailler sur différentes
+fonctionnalités ou corrections de bugs sans affecter la branche principale
+(généralement appelée `main`).
+
+Si vous avez créé une branche en local sur votre machine, vous pouvez la
+pousser vers GitHub pour la partager avec les autres membres de votre équipe 
+en utilisant la commande suivante :
+
+```bash
+git push -u origin nom-de-la-branche
+```
+
+Cela créera une nouvelle branche sur GitHub avec le même nom que votre branche
+locale et la liera à votre branche locale pour que vous puissiez facilement
+pousser et tirer les modifications à l'avenir.
+
+Avec VS Code, vous pouvez également créer et gérer des branches directement
+depuis l'interface utilisateur. Si vous n'avez plus rien à valider, vous pouvez
+cliquer sur le bouton bleu "Publier la branche" qui apparaît dans l'outil contrôle de code source.
+
+![VS Code Git add files](/img/vscode_git_branche_4.png)
+
+Il est aussi possible de cliquer sur un bouton spécifique dans l'onglet Graphique si le bouton ci-haut 
+n'est pas visible.
+
+![VS Code Git add files](/img/vscode_git_branche_5.png)
+
+## Pull request
+
+Si vous avez plusieurs branches sur GitHub, vous pouvez créer une pull request
+pour demander à ce que les modifications de votre branche soient fusionnées
+dans la branche principale, souvent appelée `main`. Cela permet à d'autres
+membres de votre équipe de revoir vos modifications avant de les intégrer dans
+la branche principale.
+
+Pour créer une pull request, vous pouvez aller sur GitHub, naviguer jusqu'à
+votre dépôt, cliquer sur l'onglet "Pull requests" et ensuite cliquer sur le
+bouton "New pull request". Vous pourrez alors sélectionner la branche que vous
+souhaitez fusionner et la branche dans laquelle vous souhaitez la fusionner
+(généralement `main`).
